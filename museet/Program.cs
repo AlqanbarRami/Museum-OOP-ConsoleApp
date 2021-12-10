@@ -17,6 +17,7 @@ namespace Museet
 
 			// Start the virtual console simulation
 			console.Simulate();
+			
 		}
 	}
 }
