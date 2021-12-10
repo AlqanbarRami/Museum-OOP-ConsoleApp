@@ -16,6 +16,13 @@ namespace Museet
         Art SomeArt2 = new Art("mueen", "Description2", "Author2");
         Art SomeArt3 = new Art("hameed", "Description3", "Author3");
 
+        public void printArtAndRooms()
+        {
+            foreach (var roomItem in museum.GetRoomsArts())
+            {
+                Console.WriteLine(roomItem);
+            }
+        }
         public void Run(string verb, string[] options)
         {
 
@@ -32,48 +39,67 @@ namespace Museet
             museum.ListOfRoomInsideMuseum.Add(museum, listOfUserRoom);
             museum.addArtIntoRoom(firstRoom, SomeArt1);
             museum.addArtIntoRoom(firstRoom, SomeArt2);
-            museum.addArtIntoRoom(firstRoom, SomeArt1);
+            museum.addArtIntoRoom(firstRoom, SomeArt3);
             museum.addArtIntoRoom(secondRoom, SomeArt3);
             // FIXME: Continue with your program here
             //	Console.WriteLine("Verb: \"{0}\", Options: \"{1}\"", verb, String.Join(',',options));
             switch (verb)
             {
-                case "listarts":
-                    museum.prinRoomAndArts();
-                    break;
-                case "getart":
-                    museum.getArtsInsideRoom(options[0]);
-                    break;
-                case "newart":
-                    Art artfromUser = new Art(options[0], options[1], options[2]);
-                    Console.WriteLine(museum.addArtIntoRoom(secondRoom, artfromUser));  // print true 
-                    break;
-                case "removeroom":
-                    Console.WriteLine(museum.RemoveRoom(options[0]));
-                    break;
-                case "addnewroom":
-					Room roomFromUser = new Room(options[0]);
-					listOfUserRoom.Add(roomFromUser);
-					Console.WriteLine("done");
-                    break;
-                case "removeart":
-					Console.WriteLine(museum.RemoveArtFromRoom(options[0],options[1]));
-					museum.prinRoomAndArts();
-                    break;
-			
- 
-			}
-            
-				/*
-			   "Commands"
-				mu listarts : list of rooms with arts
-				mu getart [Name of room as string]   : get art from room
-				mu newart [title] [description] [Author] : add new art
-			    mu removeroom [Name Of Room]   : remove room
-                mu removeart [name Of Room] [Title for art]
-				
-		      */
+                case "list":
+                    if (options[0] == "all")
+                    {
+                        printArtAndRooms();
 
+                    }
+                    break;
+                case "get":
+                    if (options[0] == "art")
+                    {
+                        museum.getArtsInsideRoom(options[1]);
+                    }
+                    break;
+                case "new":
+                    if (options[0] == "art" && options[1] == "add")
+                    {
+                        Art artfromUser = new Art(options[2], options[3], options[4]);
+                        Console.WriteLine(museum.addArtIntoRoom(secondRoom, artfromUser));  // print true 
+                    }
+                    break;
+                case "remove":
+                    if (options[0] == "room")
+                    {
+                        Console.WriteLine(museum.RemoveRoom(options[1])); 
+                    }
+                    break;
+                case "add":
+                    if (options[0] == "new" && options[1] == "room")
+                    {
+                        Room roomFromUser = new Room(options[2]);
+                        listOfUserRoom.Add(roomFromUser);
+                        Console.WriteLine("done");
+                    }
+                    break;
+                case "art":
+                   if(options[0] == "remove"){
+                    Console.WriteLine(museum.RemoveArtFromRoom(options[1], options[2]));
+                    printArtAndRooms();
+                   }
+                    break;
+
+
+            }
+
+            /*
+           "Commands"
+            mu list all : list of rooms with arts
+            mu get art [Name of room as string]   : get art from room
+            mu new art add [title] [description] [Author] : add new art
+            mu add new room [name of room]
+            mu remove room [Name Of Room]   : remove room
+            mu art remove [name Of Room] [Title for art]
+
+          */
+
+        }
     }
-}
 }

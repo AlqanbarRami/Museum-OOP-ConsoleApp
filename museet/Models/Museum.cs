@@ -37,22 +37,7 @@ namespace Museet.Models
 
         }
 
-
-
-        public void prinRoomAndArts()
-        {
-
-            foreach (KeyValuePair<Room, List<Art>> arts in ArtIntoRoom)
-            {
-                Console.WriteLine(arts.Key);
-                foreach (Art item2 in arts.Value)
-                {
-
-                    Console.WriteLine(item2.ToString());
-                }
-            }
-
-        }
+        
         public void addArIntoMuseum(Museum museum, List<Art> arts)
         {
             if (ListOfArtsInsideMesuem.ContainsKey(museum))

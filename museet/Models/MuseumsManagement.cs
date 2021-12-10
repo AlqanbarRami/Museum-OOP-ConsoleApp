@@ -17,7 +17,7 @@ namespace Museet.Models
 
         public bool addArtIntoRoom(Room room, Art art)
         {
-           if (ArtIntoRoom.ContainsKey(room))
+            if (ArtIntoRoom.ContainsKey(room))
             {
                 // check numbers of art inside room 
                 if (checkCapacityOfRoom(room))  // less than 3 arts ?
@@ -80,11 +80,11 @@ namespace Museet.Models
             return false;  // Room is full :(
         }
 
-        public string RemoveArtFromRoom(string nameOfRoom, string art)
+        public string RemoveArtFromRoom(string nameRoom, string art)
         {
             foreach (KeyValuePair<Room, List<Art>> kAndV in ArtIntoRoom)
             {
-                if (kAndV.Key.NameOfRoom == nameOfRoom)   // check if we have The room
+                if (kAndV.Key.NameOfRoom == nameRoom)   // check if we have The room
                 {
                     foreach (Art item in kAndV.Value)   // check arts inside the room
                     {
@@ -93,21 +93,51 @@ namespace Museet.Models
                             ArtIntoRoom[kAndV.Key].Remove(item);
                             return "art removed from the room";
                         }
-                        else
-                        {
-                            return "we found the room but we don't have the art inside";
-                        }
                     }
+                }
+                else if (kAndV.Key.NameOfRoom != nameRoom) 
+                {
+                    continue; // keep continue and check the next room 
                 }
                 else
                 {
                     return "Room not found";
                 }
             }
-            return "Some error";
+            return "Error";
         }
 
+        public List<string> GetRoomsArts()
+        {
+            var newRoomArtsList = new List<string>();
+            foreach (KeyValuePair<Room, List<Art>> item in ArtIntoRoom)
+            {
 
+                foreach (var item2 in GetArts(item.Key.NameOfRoom))
+                {
+                    newRoomArtsList.Add(item.Key + " " + " [Arts inside] -> " + item2);
+                }
+
+            }
+            return newRoomArtsList;
+        }
+
+        public List<string> GetArts(string nameOfRoom)
+        {
+            var newArtsList = new List<string>();
+            foreach (KeyValuePair<Room, List<Art>> item in ArtIntoRoom)
+            {
+                foreach (Art artItem in item.Value)
+                {
+                    if (item.Key.NameOfRoom == nameOfRoom)
+                    {
+                        newArtsList.Add(artItem.Title + " " + artItem.Description + " " + artItem.Author);
+                    }
+
+                }
+            }
+            return newArtsList;
+        }
 
     }
 }
