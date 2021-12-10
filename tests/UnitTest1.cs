@@ -10,7 +10,7 @@ namespace tests
     {
         //-> Enhetstesterna bevisar att reglerna i krav 10 & 11 alltid efterföljs <-\\
         [Fact]
-        public void AddinArtsIntoRoomTest()  // Rooms should contains max three arts
+        public void AddingArtsIntoRoomTest()  // Rooms should contains max three arts
         {
             Art art1 = new Art("title1", "description1", "alqanbar1");
             Art art2 = new Art("title2", "description2", "alqanbar2");

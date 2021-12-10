@@ -22,18 +22,20 @@ namespace Museet.Models
             ListofMuseum.Add(museum);
 
         }
-        public void getArtsInsideRoom(string nameOfRoom)
-        {
+        public List<string> getArtsInsideRoom(string nameOfRoom)
+        { 
+            var templist = new List<string>();
             foreach (KeyValuePair<Room, List<Art>> kAndV in ArtIntoRoom)
             {
                 if (kAndV.Key.NameOfRoom == nameOfRoom)
                 {
                     foreach (Art item in ArtIntoRoom[kAndV.Key])
                     {
-                        Console.WriteLine(item.ToString());
+                        templist.Add(item.Title + " " + item.Description + " " + item.Author);
                     }
                 }
             }
+            return templist;
 
         }
 

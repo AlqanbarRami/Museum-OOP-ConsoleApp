@@ -23,6 +23,14 @@ namespace Museet
                 Console.WriteLine(roomItem);
             }
         }
+
+        public void printArtInsideRoom(string name){
+            Console.WriteLine($"Art inside room -> {name} ");
+             foreach (var artItem in museum.getArtsInsideRoom(name))
+            {
+                Console.WriteLine(artItem);
+            }
+        }
         public void Run(string verb, string[] options)
         {
 
@@ -55,7 +63,7 @@ namespace Museet
                 case "get":
                     if (options[0] == "art")
                     {
-                        museum.getArtsInsideRoom(options[1]);
+                        printArtInsideRoom(options[1]);
                     }
                     break;
                 case "new":
